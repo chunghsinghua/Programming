@@ -5,36 +5,6 @@ using namespace std;
 #define N 60010
 typedef long long ll;
 
-int s[N], gate[N], delay[N], lc[N], rc[N];
-
-void dp(int v)
-{
-    if (s[v] >= 0)
-        return;
-    dp(lc[v]);
-    if (gate[v] == 4)
-    {
-        s[v] = 1 - s[lc[v]];
-        delay[v] = delay[lc[v]] + 1;
-        return;
-    }
-    dp(rc[v]);
-    delay[v] = max(delay[lc[v]], delay[rc[v]]) + 1;
-    if (gate[v] == 1)
-    {
-        s[v] = s[lc[v]] & s[rc[v]];
-    }
-    else if (gate[v] == 2)
-    {
-        s[v] = s[lc[v]] | s[rc[v]];
-    }
-    else if (gate[v] == 3)
-    {
-        s[v] = s[lc[v]] ^ s[rc[v]];
-    }
-    return;
-}
-
 int main()
 {
     // freopen("P_8_7_3.in", "r", stdin);
